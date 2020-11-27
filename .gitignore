@@ -23,3 +23,5 @@ sandbox/build/classes/java/main/ru/stqa/pft/sandbox/Second.class
 sandbox/build.gradle
 sandbox/build.gradle
 sandbox/build/classes/java/main/ru/stqa/pft/sandbox/Second.class
+*.class
+sandbox/build.gradle
