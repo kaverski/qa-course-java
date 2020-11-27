@@ -19,3 +19,7 @@ sandbox/build/scripts/sandbox
 sandbox/build/tmp/compileJava/source-classes-mapping.txt
 sandbox/build/scripts/sandbox.bat
 sandbox/build/tmp/jar/MANIFEST.MF
+sandbox/build/classes/java/main/ru/stqa/pft/sandbox/Second.class
+sandbox/build.gradle
+sandbox/build.gradle
+sandbox/build/classes/java/main/ru/stqa/pft/sandbox/Second.class
