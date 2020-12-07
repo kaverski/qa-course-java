@@ -27,3 +27,6 @@ sandbox/build/test-results/test/binary/output.bin
 sandbox/build/test-results/test/binary/output.bin.idx
 sandbox/build/tmp/compileTestJava/source-classes-mapping.txt
 sandbox/out/production/classes/META-INF/sandbox.main.kotlin_module
+addressbook-web-tests/build/test-results/test/binary/output.bin
+addressbook-web-tests/build/test-results/test/binary/output.bin.idx
+addressbook-web-tests/build/tmp/compileTestJava/source-classes-mapping.txt
