@@ -9,7 +9,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class GroupCreationTests {
     private WebDriver wd;
 
-
     @BeforeMethod(alwaysRun = true)
     public void setUp() throws Exception {
         wd = new FirefoxDriver();
