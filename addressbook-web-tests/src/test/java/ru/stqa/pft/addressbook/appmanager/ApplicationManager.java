@@ -49,7 +49,7 @@ public class ApplicationManager {
         wd.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
     }
 
-    public void submitGroupCreation() {
+    public void submitGroupForm() {
         wd.findElement(By.name("submit")).click();
     }
 
@@ -87,6 +87,14 @@ public class ApplicationManager {
         wd.findElement(By.linkText("home page")).click();
     }
 
+    public void selectGroup() {
+        wd.findElement(By.name("selected[]")).click();
+    }
+
+    public void deleteSelectedGroups() {
+        wd.findElement(By.name("delete")).click();
+    }
+
     private void logout() {
         wd.findElement(By.linkText("Logout")).click();
     }
@@ -112,13 +120,5 @@ public class ApplicationManager {
         } catch (NoAlertPresentException e) {
             return false;
         }
-    }
-
-    public void selectGroup() {
-        wd.findElement(By.name("selected[]")).click();
-    }
-
-    public void deleteSelectedGroups() {
-        wd.findElement(By.name("delete")).click();
     }
 }

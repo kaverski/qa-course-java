@@ -10,6 +10,7 @@ public class TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() throws Exception {
+        //referencing to the helper-class to invoke methods to perform actions in AUT
         app.init();
     }
 
