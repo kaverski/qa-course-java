@@ -65,13 +65,4 @@ public class ApplicationManager {
             return false;
         }
     }
-
-    public boolean isAlertPresent() {
-        try {
-            wd.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
-    }
 }
