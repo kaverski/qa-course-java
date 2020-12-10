@@ -20,4 +20,16 @@ public class NavigationHelper extends HelperBase{
     public void goToHomePage() {
         click(By.linkText("home page"));
     }
+
+    public void goToContactDetailsPage() {
+        click(By.xpath("(//img[@title='Details'])[2]"));
+    }
+
+    public void goToModifyPage() {
+        click(By.name("modifiy"));
+    }
+
+    public void goToContactEditPage() {
+        click(By.xpath("(//img[@title='Edit'])[3]"));
+    }
 }

@@ -11,6 +11,10 @@ public class HelperBase {
         this.wd = wd;
     }
 
+    public WebDriver getWd(){
+        return wd;
+    }
+
     public void type(By locator, String input) {
         click(locator);
         wd.findElement(locator).clear();
