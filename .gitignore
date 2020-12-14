@@ -31,3 +31,4 @@ addressbook-web-tests/build/test-results/test/binary/output.bin
 addressbook-web-tests/build/test-results/test/binary/output.bin.idx
 addressbook-web-tests/build/tmp/compileTestJava/source-classes-mapping.txt
 addressbook-web-tests/out/test/classes/META-INF/addressbook-web-tests.main.kotlin_module
+addressbook-web-tests/msedgedriver.exe
