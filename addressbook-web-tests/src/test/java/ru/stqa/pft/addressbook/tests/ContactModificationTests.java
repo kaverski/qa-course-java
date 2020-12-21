@@ -8,7 +8,7 @@ public class ContactModificationTests extends TestBase {
     @Test
     public void testContactModificationViaEditPage() {
         app.getNavigationHelper().goToContactEditPage();
-        app.getContactHelper().fillContactForm(new ContactData("NewFirst", "NewMiddle", "NewLast", "2222222", "newtest@newtest.newtest"));
+        app.getContactHelper().fillContactForm(new ContactData("NewFirst", "NewMiddle", "NewLast", "2222222", "newtest@newtest.newtest", null), false);
         app.getContactHelper().submitContactModification();
         app.getNavigationHelper().goToHomePage();
     }
@@ -17,7 +17,7 @@ public class ContactModificationTests extends TestBase {
     public void testContactModificationViaDetailsPage() {
         app.getNavigationHelper().goToContactDetailsPage();
         app.getNavigationHelper().goToModifyPage();
-        app.getContactHelper().fillContactForm(new ContactData("ModifyOneFirst", "ModifySecondMiddle", "ModifyThirdLast", "3333333", "modify2@modify3.modify4"));
+        app.getContactHelper().fillContactForm(new ContactData("ModifyOneFirst", "ModifySecondMiddle", "ModifyThirdLast", "3333333", "modify2@modify3.modify4", null), false);
         app.getContactHelper().submitContactModification();
         app.getNavigationHelper().goToHomePage();
     }
