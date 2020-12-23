@@ -1,9 +1,7 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
@@ -46,5 +44,19 @@ public class ContactHelper extends HelperBase {
 
     public void acceptAlert() {
         getWd().switchTo().alert().accept();
+    }
+
+    public void createContact() {
+        fillContactForm(new ContactData("ABC", "MyMiddle", "MyLast", "265699", "test@test.test", "test111"), true);
+        submitContactForm();
+    }
+
+    public void editContact() {
+       fillContactForm(new ContactData("NewFirst12", "NewMiddle12", "NewLast12", "121212", "newtest11@newtest.newtest", null), false);
+       submitContactModification();
+    }
+
+    public boolean isThereAContact() {
+        return isElementPresent(By.name("selected[]"));
     }
 }

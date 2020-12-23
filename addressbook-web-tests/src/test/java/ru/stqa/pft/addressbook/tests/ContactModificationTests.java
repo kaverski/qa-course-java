@@ -1,24 +1,31 @@
 package ru.stqa.pft.addressbook.tests;
 
 import org.testng.annotations.Test;
-import ru.stqa.pft.addressbook.model.ContactData;
 
 public class ContactModificationTests extends TestBase {
 
     @Test
     public void testContactModificationViaEditPage() {
+        if (!app.getContactHelper().isThereAContact()) {
+            app.getNavigationHelper().goToAddContactPage();
+            app.getContactHelper().createContact();
+            app.getNavigationHelper().goToHomePage();
+        }
         app.getNavigationHelper().goToContactEditPage();
-        app.getContactHelper().fillContactForm(new ContactData("NewFirst", "NewMiddle", "NewLast", "2222222", "newtest@newtest.newtest", null), false);
-        app.getContactHelper().submitContactModification();
+        app.getContactHelper().editContact();
         app.getNavigationHelper().goToHomePage();
     }
 
     @Test
     public void testContactModificationViaDetailsPage() {
+        if (!app.getContactHelper().isThereAContact()) {
+            app.getNavigationHelper().goToAddContactPage();
+            app.getContactHelper().createContact();
+            app.getNavigationHelper().goToHomePage();
+        }
         app.getNavigationHelper().goToContactDetailsPage();
         app.getNavigationHelper().goToModifyPage();
-        app.getContactHelper().fillContactForm(new ContactData("ModifyOneFirst", "ModifySecondMiddle", "ModifyThirdLast", "3333333", "modify2@modify3.modify4", null), false);
-        app.getContactHelper().submitContactModification();
+        app.getContactHelper().editContact();
         app.getNavigationHelper().goToHomePage();
     }
 }

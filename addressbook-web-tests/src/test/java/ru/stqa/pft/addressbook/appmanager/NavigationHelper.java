@@ -30,7 +30,7 @@ public class NavigationHelper extends HelperBase{
     }
 
     public void goToContactDetailsPage() {
-        click(By.xpath("(//img[@title='Details'])[2]"));
+        click(By.xpath("//img[@title='Details']"));
     }
 
     public void goToModifyPage() {
@@ -38,6 +38,6 @@ public class NavigationHelper extends HelperBase{
     }
 
     public void goToContactEditPage() {
-        click(By.xpath("(//img[@title='Edit'])[3]"));
+        click(By.xpath("//img[@title='Edit']"));
     }
 }
