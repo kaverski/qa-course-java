@@ -28,8 +28,9 @@ public class GroupHelper extends HelperBase{
         click(By.name("submit"));
     }
 
-    public void selectGroup() {
-        click(By.name("selected[]"));
+    public void selectGroup(int index) {
+        //находим все элементы, и подаем индекс нужного элемента, по кот. выполнить клик
+        getWd().findElements(By.name("selected[]")).get(index).click();
     }
 
     public void deleteSelectedGroups() {
@@ -55,10 +56,9 @@ public class GroupHelper extends HelperBase{
         return isElementPresent(By.name("selected[]"));
     }
 
-    public void editGroup() {
-        selectGroup();
+    public void editGroup(GroupData groupData) {
         initGroupModification();
-        fillGroupForm(new GroupData("test111", "test222", "test333"));
+        fillGroupForm(groupData);
         submitGroupModification();
     }
 

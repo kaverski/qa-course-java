@@ -10,7 +10,7 @@ public class ContactModificationTests extends TestBase {
         if (!app.getContactHelper().isThereAContact()) {
             app.getNavigationHelper().goToAddContactPage();
             app.getContactHelper().createContact(new ContactData("InitialName",
-                    "InitialMiddle", "InitialLast", "7777", "test222@test333.test444", "test555"), true);
+                    "InitialMiddle", "InitialLast", "7777", "test222@test333.test444", "test777"), true);
             app.getNavigationHelper().goToHomePage();
         }
         app.getNavigationHelper().goToContactEditPage();
@@ -24,7 +24,7 @@ public class ContactModificationTests extends TestBase {
         if (!app.getContactHelper().isThereAContact()) {
             app.getNavigationHelper().goToAddContactPage();
             app.getContactHelper().createContact(new ContactData("InitialName",
-                    "InitialMiddle", "InitialLast", "7777", "test222@test333.test444", "test555"), true);
+                    "InitialMiddle", "InitialLast", "7777", "test222@test333.test444", "test777"), true);
             app.getNavigationHelper().goToHomePage();
         }
         app.getNavigationHelper().goToContactDetailsPage();
