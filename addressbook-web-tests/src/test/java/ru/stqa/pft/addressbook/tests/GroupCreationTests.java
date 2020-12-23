@@ -7,7 +7,11 @@ public class GroupCreationTests extends TestBase {
 
     @Test
     public void testGroupCreation() throws Exception {
+        //количество групп до добавления
+       // int before = app.getGroupHelper().getGroupCount();
         app.getNavigationHelper().goToGroupPage();
         app.getGroupHelper().createGroup(new GroupData("test555", null, null));
+        //количество групп после добавления
+       // int after = app.getGroupHelper().getGroupCount();
     }
 }

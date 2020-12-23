@@ -46,13 +46,13 @@ public class ContactHelper extends HelperBase {
         getWd().switchTo().alert().accept();
     }
 
-    public void createContact() {
-        fillContactForm(new ContactData("ABC", "MyMiddle", "MyLast", "265699", "test@test.test", "test111"), true);
+    public void createContact(ContactData contactData, boolean creation) {
+        fillContactForm(contactData, creation);
         submitContactForm();
     }
 
-    public void editContact() {
-       fillContactForm(new ContactData("NewFirst12", "NewMiddle12", "NewLast12", "121212", "newtest11@newtest.newtest", null), false);
+    public void editContact(ContactData contactData, boolean creation) {
+       fillContactForm(contactData, creation);
        submitContactModification();
     }
 
