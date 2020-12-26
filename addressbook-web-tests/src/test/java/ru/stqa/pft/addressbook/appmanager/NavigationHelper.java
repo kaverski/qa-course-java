@@ -29,15 +29,15 @@ public class NavigationHelper extends HelperBase{
         click(By.linkText("home page"));
     }
 
-    public void goToContactDetailsPage() {
-        click(By.xpath("//img[@title='Details']"));
+    public void goToContactDetailsPage(int index) {
+        getWd().findElements(By.xpath("//img[@title='Details']")).get(index).click();
     }
 
     public void goToModifyPage() {
         click(By.name("modifiy"));
     }
 
-    public void goToContactEditPage() {
-        click(By.xpath("//img[@title='Edit']"));
+    public void goToContactEditPage(int index) {
+        getWd().findElements(By.xpath("//img[@title='Edit']")).get(index).click();
     }
 }
