@@ -17,26 +17,23 @@ public class ContactModificationTests extends TestBase {
                     "InitialMiddle", "InitialLast", "7777", "test222@test333.test444", "test777"), true);
             app.getNavigationHelper().goToHomePage();
         }
-        //initial contact list
+        //actual element list BEFORE edit contact
         List<ContactData> before = app.getContactHelper().getContactList();
-        //select contact for edit by index
-        app.getNavigationHelper().goToContactEditPage(before.size()-1);
-        //edited contact
-        ContactData contactToEdit = new ContactData(before.get(before.size() - 1).getId(),  "First",
+
+        app.getNavigationHelper().goToContactEditPage(before.size() - 1);
+        ContactData contactToEdit = new ContactData(before.get(before.size() - 1).getId(), "First",
                 "Middle", "Last", "8888", "test111@test888.test555", null);
         app.getContactHelper().editContact(contactToEdit, false);
         app.getNavigationHelper().goToHomePage();
-        //after edit list
+
+        //actual element list AFTER edit contact
         List<ContactData> after = app.getContactHelper().getContactList();
-        //removing old last-element
-        before.remove(before.size()-1);
-        //adding edited element
+        before.remove(before.size() - 1);
         before.add(contactToEdit);
-        //sorting
+
         Comparator<ContactData> byID = Comparator.comparing(ContactData::getId);
         before.sort(byID);
         after.sort(byID);
-
         Assert.assertEquals(before, after);
     }
 
@@ -52,7 +49,7 @@ public class ContactModificationTests extends TestBase {
         app.getNavigationHelper().goToContactDetailsPage(before.size() - 1);
         app.getNavigationHelper().goToModifyPage();
         ContactData contactToEdit = new ContactData(before.get(before.size() - 1).getId(), "UPDFirst",
-                "UpdatedMiddle", "000UpdatedLast", "8888", "test111@test888.test555", null);
+                "UpdatedMiddle", "BBBUpdatedLast", "8888", "test111@test888.test555", null);
         app.getContactHelper().editContact(contactToEdit, false);
         app.getNavigationHelper().goToHomePage();
 

@@ -22,9 +22,8 @@ public class GroupCreationTests extends TestBase {
         Comparator<GroupData> byId = Comparator.comparing(GroupData::getId);
         before.sort(byId);
         after.sort(byId);
-        System.out.println("after: " + after);
-        System.out.println("before: " + after);
-
+        System.out.println("before: " + before);
+        System.out.println("after:" + after);
 
         Assert.assertEquals(before, after);
     }
