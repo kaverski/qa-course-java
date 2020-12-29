@@ -8,14 +8,14 @@ import ru.stqa.pft.addressbook.model.GroupData;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupHelper extends HelperBase{
+public class GroupHelper extends HelperBase {
 
     public GroupHelper(WebDriver wd) {
         super(wd);
     }
 
     public void initGroupCreation() {
-       click(By.name("new"));
+        click(By.name("new"));
     }
 
     public void fillGroupForm(GroupData groupData) {
@@ -56,8 +56,10 @@ public class GroupHelper extends HelperBase{
         returnToGroupPage();
     }
 
-    public boolean isThereAGroup() {
-        return isElementPresent(By.name("selected[]"));
+    public void deleteGroup(int groupIndex) {
+        selectGroup(groupIndex);
+        deleteSelectedGroups();
+        returnToGroupPage();
     }
 
     public void modifyGroup(int groupIndex, GroupData groupData) {
@@ -66,6 +68,10 @@ public class GroupHelper extends HelperBase{
         fillGroupForm(groupData);
         submitGroupModification();
         returnToGroupPage();
+    }
+
+    public boolean isThereAGroup() {
+        return isElementPresent(By.name("selected[]"));
     }
 
     public int getGroupCount() {
