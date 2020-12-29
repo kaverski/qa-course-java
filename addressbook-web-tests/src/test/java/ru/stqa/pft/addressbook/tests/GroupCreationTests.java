@@ -13,7 +13,9 @@ public class GroupCreationTests extends TestBase {
     public void testGroupCreation() throws Exception {
         app.getNavigationHelper().goToGroupPage();
         List<GroupData> before = app.getGroupHelper().getGroupList();
-        GroupData groupToAdd = new GroupData("11test000", null, null);
+        //вызов деф конструктора с ID=max integer и без null для header & footer
+        GroupData groupToAdd = new GroupData().withName("11test000");
+
         app.getGroupHelper().createGroup(groupToAdd);
 
         List<GroupData> after = app.getGroupHelper().getGroupList();
