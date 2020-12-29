@@ -8,12 +8,16 @@ import java.util.List;
 
 public class GroupDeletionTests extends TestBase {
 
+    @BeforeMethod
+    public void ensurePreconditions() {
+        app.getNavigationHelper().goToGroupPage();
+        if (!app.getGroupHelper().isThereAGroup()) {
+            app.getGroupHelper().createGroup(new GroupData("test777", null, null));
+        }
+    }
+
     @Test
     public void testGroupDeletion() throws Exception {
-        app.getNavigationHelper().goToGroupPage();
-        if (!app.getGroupHelper().isThereAGroup())  {
-            app.getGroupHelper().createGroup(new GroupData("test555", null, null));
-        }
         List<GroupData> before = app.getGroupHelper().getGroupList();
 
         //выбор группы для удаления по индексу

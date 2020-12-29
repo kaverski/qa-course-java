@@ -9,13 +9,13 @@ import java.util.List;
 
 public class ContactCreationTests extends TestBase {
 
-    @Test
+    @Test(enabled = false)
     public void testContactCreation() throws Exception {
         //actual element list BEFORE adding new contact
         List<ContactData> before = app.getContactHelper().getContactList();
 
         app.getNavigationHelper().goToAddContactPage();
-        ContactData contactToAdd = new ContactData("11First", "Onemore2", "ZZZFirstLast", "87878", "newtest123@newtest.newtest", "test3");
+        ContactData contactToAdd = new ContactData("11First", "Onemore2", "rrZZZFirstLast", "87878", "newtest123@newtest.newtest", "test3");
         app.getContactHelper().createContact(contactToAdd, true);
         app.getNavigationHelper().goToHomePage();
 

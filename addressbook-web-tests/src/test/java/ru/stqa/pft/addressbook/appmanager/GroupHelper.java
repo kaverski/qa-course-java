@@ -60,10 +60,12 @@ public class GroupHelper extends HelperBase{
         return isElementPresent(By.name("selected[]"));
     }
 
-    public void editGroup(GroupData groupData) {
+    public void modifyGroup(int groupIndex, GroupData groupData) {
+        selectGroup(groupIndex);
         initGroupModification();
         fillGroupForm(groupData);
         submitGroupModification();
+        returnToGroupPage();
     }
 
     public int getGroupCount() {

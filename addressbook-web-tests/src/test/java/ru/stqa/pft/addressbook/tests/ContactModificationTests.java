@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ContactModificationTests extends TestBase {
 
-    @Test
+    @Test(enabled = false)
     public void testContactModificationViaEditPage() {
         if (!app.getContactHelper().isThereAContact()) {
             app.getNavigationHelper().goToAddContactPage();
@@ -37,7 +37,7 @@ public class ContactModificationTests extends TestBase {
         Assert.assertEquals(before, after);
     }
 
-    @Test
+    @Test(enabled = false)
     public void testContactModificationViaDetailsPage() {
         if (!app.getContactHelper().isThereAContact()) {
             app.getNavigationHelper().goToAddContactPage();
