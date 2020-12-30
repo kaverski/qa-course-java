@@ -4,9 +4,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GroupHelper extends HelperBase {
 
@@ -32,12 +35,11 @@ public class GroupHelper extends HelperBase {
         click(By.name("submit"));
     }
 
-    public void selectGroup(int index) {
-        //находим все элементы, и подаем индекс нужного элемента, по кот. выполнить клик
-        getWd().findElements(By.name("selected[]")).get(index).click();
+    public void selectGroupById(int id) {
+        getWd().findElement(By.cssSelector("input[value='" + id + "' ]")).click();
     }
 
-    public void deleteSelectedGroups() {
+    public void deleteSelectedGroup() {
         click(By.name("delete"));
     }
 
@@ -49,23 +51,23 @@ public class GroupHelper extends HelperBase {
         click(By.name("update"));
     }
 
-    public void createGroup(GroupData groupData) {
+    public void createGroup(GroupData group) {
         initGroupCreation();
-        fillGroupForm(groupData);
+        fillGroupForm(group);
         submitGroupForm();
         returnToGroupPage();
     }
 
-    public void deleteGroup(int groupIndex) {
-        selectGroup(groupIndex);
-        deleteSelectedGroups();
+    public void deleteGroup(GroupData group) {
+        selectGroupById(group.getId());
+        deleteSelectedGroup();
         returnToGroupPage();
     }
 
-    public void modifyGroup(int groupIndex, GroupData groupData) {
-        selectGroup(groupIndex);
+    public void modifyGroup(GroupData group) {
+        selectGroupById(group.getId());
         initGroupModification();
-        fillGroupForm(groupData);
+        fillGroupForm(group);
         submitGroupModification();
         returnToGroupPage();
     }
@@ -80,6 +82,18 @@ public class GroupHelper extends HelperBase {
 
     public List<GroupData> getGroupList() {
         List<GroupData> groups = new ArrayList<>();
+        List<WebElement> elements = getWd().findElements(By.cssSelector("span.group"));
+        for (WebElement element : elements) {
+            String name = element.getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            groups.add(new GroupData().withId(id)
+                    .withName(name));
+        }
+        return groups;
+    }
+
+    public Groups all() {
+        Groups groups = new Groups();
         List<WebElement> elements = getWd().findElements(By.cssSelector("span.group"));
         for (WebElement element : elements) {
             String name = element.getText();

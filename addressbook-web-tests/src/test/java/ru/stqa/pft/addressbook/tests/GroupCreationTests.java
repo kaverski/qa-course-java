@@ -1,32 +1,31 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class GroupCreationTests extends TestBase {
 
     @Test
     public void testGroupCreation() throws Exception {
         app.getNavigationHelper().goToGroupPage();
-        List<GroupData> before = app.getGroupHelper().getGroupList();
+        Groups before = app.getGroupHelper().all();
+
         //вызов деф конструктора с ID=max integer и без null для header & footer
         GroupData groupToAdd = new GroupData().withName("11test000");
 
         app.getGroupHelper().createGroup(groupToAdd);
 
-        List<GroupData> after = app.getGroupHelper().getGroupList();
+        Groups after = app.getGroupHelper().all();
 
-        before.add(groupToAdd);
-        Comparator<GroupData> byId = Comparator.comparing(GroupData::getId);
-        before.sort(byId);
-        after.sort(byId);
-        System.out.println("before: " + before);
-        System.out.println("after:" + after);
+        assertThat(after.size(), equalTo(before.size() + 1));
 
-        Assert.assertEquals(before, after);
+        assertThat(after, equalTo(
+                before.withAdded(groupToAdd.withId(after.stream().mapToInt(GroupData::getId).max().getAsInt()))));
     }
 }
