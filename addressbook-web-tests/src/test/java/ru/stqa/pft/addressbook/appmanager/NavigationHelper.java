@@ -2,8 +2,9 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import ru.stqa.pft.addressbook.model.ContactData;
 
-public class NavigationHelper extends HelperBase{
+public class NavigationHelper extends HelperBase {
 
     public NavigationHelper(WebDriver wd) {
         super(wd);
@@ -33,11 +34,20 @@ public class NavigationHelper extends HelperBase{
         getWd().findElements(By.xpath("//img[@title='Details']")).get(index).click();
     }
 
+    public void goToContactDetailsPageById(int id) {
+        getWd().findElement(By.xpath("//a[@href='view.php?id=" + id + "']")).click();
+    }
+
     public void goToModifyPage() {
         click(By.name("modifiy"));
     }
 
     public void goToContactEditPage(int index) {
         getWd().findElements(By.xpath("//img[@title='Edit']")).get(index).click();
+    }
+
+
+    public void goToContactEditPageById(int id) {
+        getWd().findElement(By.xpath("//a[@href='edit.php?id=" + id + "']")).click();
     }
 }

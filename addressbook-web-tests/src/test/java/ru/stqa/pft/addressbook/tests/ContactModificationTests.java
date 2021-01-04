@@ -1,66 +1,80 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.Comparator;
-import java.util.List;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class ContactModificationTests extends TestBase {
 
-    @Test(enabled = false)
-    public void testContactModificationViaEditPage() {
-        if (!app.getContactHelper().isThereAContact()) {
+    @BeforeMethod
+    public void ensurePreconditions() {
+        if (app.getContactHelper().getContacts().size() == 0) {
             app.getNavigationHelper().goToAddContactPage();
-            app.getContactHelper().createContact(new ContactData("InitialName",
-                    "InitialMiddle", "InitialLast", "7777", "test222@test333.test444", "test777"), true);
+            app.getContactHelper().createContact(new ContactData().withFirstName("InitialName")
+                    .withMiddleName("InitialMiddle")
+                    .withLastName("InitialLast")
+                    .withHomeNr("7777")
+                    .withEmail("test222@test333.test444"), true);
             app.getNavigationHelper().goToHomePage();
         }
-        //actual element list BEFORE edit contact
-        List<ContactData> before = app.getContactHelper().getContactList();
+    }
 
-        app.getNavigationHelper().goToContactEditPage(before.size() - 1);
-        ContactData contactToEdit = new ContactData(before.get(before.size() - 1).getId(), "First",
-                "Middle", "Last", "8888", "test111@test888.test555", null);
-        app.getContactHelper().editContact(contactToEdit, false);
+    @Test
+    public void testContactModificationViaEditPage() {
+        //actual element list BEFORE edit contact
+        Contacts before = app.getContactHelper().getContacts();
+
+        //contact to modify
+        ContactData contactToModify = before.iterator().next();
+
+        app.getNavigationHelper().goToContactEditPageById(contactToModify.getId());
+
+        //создать новый контакт с ИД модифиц контакта
+        ContactData contact = new ContactData().withId(contactToModify.getId())
+                .withFirstName("First")
+                .withMiddleName("Middle")
+                .withLastName("Last")
+                .withHomeNr("8888")
+                .withEmail("test111@test888.test555");
+
+        app.getContactHelper().editContact(contact, false);
         app.getNavigationHelper().goToHomePage();
 
         //actual element list AFTER edit contact
-        List<ContactData> after = app.getContactHelper().getContactList();
-        before.remove(before.size() - 1);
-        before.add(contactToEdit);
+        Contacts after = app.getContactHelper().getContacts();
+        before.remove(contactToModify);
+        before.add(contact);
 
-        Comparator<ContactData> byID = Comparator.comparing(ContactData::getId);
-        before.sort(byID);
-        after.sort(byID);
-        Assert.assertEquals(before, after);
+      //  assertEquals(before.size(), after.size());
+        assertThat(after, equalTo(before.without(contactToModify).withAdded(contact)));
     }
 
-    @Test(enabled = false)
+    @Test
     public void testContactModificationViaDetailsPage() {
-        if (!app.getContactHelper().isThereAContact()) {
-            app.getNavigationHelper().goToAddContactPage();
-            app.getContactHelper().createContact(new ContactData("InitialName",
-                    "InitialMiddle", "InitialLast", "7777", "test222@test333.test444", "test777"), true);
-            app.getNavigationHelper().goToHomePage();
-        }
-        List<ContactData> before = app.getContactHelper().getContactList();
-        app.getNavigationHelper().goToContactDetailsPage(before.size() - 1);
+        Contacts before = app.getContactHelper().getContacts();
+        ContactData contactToModify = before.iterator().next();
+        app.getNavigationHelper().goToContactDetailsPageById(contactToModify.getId());
         app.getNavigationHelper().goToModifyPage();
-        ContactData contactToEdit = new ContactData(before.get(before.size() - 1).getId(), "UPDFirst",
-                "UpdatedMiddle", "BBBUpdatedLast", "8888", "test111@test888.test555", null);
-        app.getContactHelper().editContact(contactToEdit, false);
+
+        ContactData contact = new ContactData().withId(contactToModify.getId())
+                .withFirstName("UPDFirst")
+                .withMiddleName("UpdatedMiddle")
+                .withLastName("BBBUpdatedLast")
+                .withHomeNr("8888")
+                .withEmail("test111@test888.test555");
+
+        app.getContactHelper().editContact(contact, false);
         app.getNavigationHelper().goToHomePage();
 
-        List<ContactData> after = app.getContactHelper().getContactList();
-        before.remove(before.size() - 1);
-        before.add(contactToEdit);
+        Contacts after = app.getContactHelper().getContacts();
+        before.remove(contactToModify);
+        before.add(contact);
 
-        Comparator<ContactData> byID = Comparator.comparing(ContactData::getId);
-        before.sort(byID);
-        after.sort(byID);
-
-        Assert.assertEquals(before, after);
+       // assertEquals(before.size(), after.size());
+        assertThat(after, equalTo(before.without(contactToModify).withAdded(contact)));
     }
 }

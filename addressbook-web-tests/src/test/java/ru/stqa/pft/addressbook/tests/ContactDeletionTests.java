@@ -1,55 +1,54 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.Comparator;
-import java.util.List;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
+import static org.testng.Assert.*;
 
 public class ContactDeletionTests extends TestBase {
 
-    @Test(enabled = false)
-    public void testContactDeletionFromEditPage() {
-        if (!app.getContactHelper().isThereAContact()) {
+    @BeforeMethod
+    public void ensurePreconditions() {
+        if (app.getContactHelper().getContacts().size() == 0) {
             app.getNavigationHelper().goToAddContactPage();
-            app.getContactHelper().createContact(new ContactData("InitialName",
-                    "InitialMiddle", "InitialLast", "7777", "test222@test333.test444", "test777"), true);
+            app.getContactHelper().createContact(new ContactData().withFirstName("InitialName")
+                    .withMiddleName("InitialMiddle")
+                    .withLastName("InitialLast")
+                    .withHomeNr("7777")
+                    .withEmail("test222@test333.test444"), true);
             app.getNavigationHelper().goToHomePage();
         }
-        List<ContactData> before = app.getContactHelper().getContactList();
-        app.getNavigationHelper().goToContactEditPage(before.size() - 1);
-        app.getContactHelper().deleteContact();
-        List<ContactData> after = app.getContactHelper().getContactList();
-
-        before.remove(before.size() - 1);
-
-        Comparator<ContactData> byID = Comparator.comparing(ContactData::getId);
-        before.sort(byID);
-        after.sort(byID);
-
-        Assert.assertEquals(before, after);
     }
 
-    @Test(enabled = false)
+    @Test
+    public void testContactDeletionFromEditPage() {
+        Contacts before = app.getContactHelper().getContacts();
+        ContactData contactToDelete = before.iterator().next();
+        app.getNavigationHelper().goToContactEditPageById(contactToDelete.getId());
+        app.getContactHelper().deleteContact();
+        Contacts after = app.getContactHelper().getContacts();
+
+        before.remove(contactToDelete);
+        assertEquals(before.size(), after.size());
+        assertThat(after, equalTo(before.without(contactToDelete)));
+    }
+
+    @Test
     public void testContactDeletionFromHomePage() {
-        if (!app.getContactHelper().isThereAContact()) {
-            app.getNavigationHelper().goToAddContactPage();
-            app.getContactHelper().createContact(new ContactData("InitialName",
-                    "InitialMiddle", "InitialLast", "7777", "test222@test333.test444", "test777"), true);
-            app.getNavigationHelper().goToHomePage();
-        }
-        List<ContactData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().selectContact(before.size() - 1);
+        Contacts before = app.getContactHelper().getContacts();
+        ContactData contactToDelete = before.iterator().next();
+
+        app.getContactHelper().selectContactById(contactToDelete.getId());
         app.getContactHelper().deleteContact();
         app.getContactHelper().acceptAlert();
-        List<ContactData> after = app.getContactHelper().getContactList();
-        before.remove(before.size() - 1);
+        Contacts after = app.getContactHelper().getContacts();
+        before.remove(contactToDelete);
 
-        Comparator<ContactData> byID = Comparator.comparing(ContactData::getId);
-        before.sort(byID);
-        after.sort(byID);
-
-        Assert.assertEquals(before, after);
+        assertEquals(before, after);
+        assertThat(after, equalTo(before.without(contactToDelete)));
     }
 }
