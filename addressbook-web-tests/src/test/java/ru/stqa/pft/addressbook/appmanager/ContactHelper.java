@@ -21,6 +21,8 @@ public class ContactHelper extends HelperBase {
         type(By.name("middlename"), contactData.getMiddleName());
         type(By.name("lastname"), contactData.getLastName());
         type(By.name("home"), contactData.getHomeNr());
+        type(By.name("mobile"), contactData.getMobileNr());
+        type(By.name("work"), contactData.getWorkNr());
         type(By.name("email"), contactData.getEmail());
 
         if (creation) {
@@ -78,12 +80,38 @@ public class ContactHelper extends HelperBase {
         for (WebElement tableEntry : tableEntries) {
             String lastName = tableEntry.findElement(By.xpath(".//td[2]")).getText();
             String firstName = tableEntry.findElement(By.xpath(".//td[3]")).getText();
+            //get all phones from cell
+            String allPhones = tableEntry.findElement(By.xpath(".//td[6]")).getText();
+            //split all phones cell
+            String[] phones = allPhones.split("\n");
             int id = Integer.parseInt(tableEntry.findElement(By.xpath(".//td[1]/input")).getAttribute("id"));
             ContactData contact = new ContactData().withId(id)
                     .withFirstName(firstName)
-                    .withLastName(lastName);
+                    .withLastName(lastName)
+                    .withHomeNr(phones[0])
+                    .withMobileNr(phones[1])
+                    .withWorkNr(phones[2]);
             contacts.add(contact);
         }
         return contacts;
+    }
+
+    public void goToContactEditPageById(int id) {
+        getWd().findElement(By.xpath("//a[@href='edit.php?id=" + id + "']")).click();
+    }
+
+    public ContactData getInfoFromEditForm(ContactData contact) {
+        goToContactEditPageById(contact.getId());
+        String firstName = getWd().findElement(By.name("firstname")).getAttribute("value");
+        String lastName = getWd().findElement(By.name("lastname")).getAttribute("value");
+        String homeNr = getWd().findElement(By.name("home")).getAttribute("value");
+        String mobileNr = getWd().findElement(By.name("mobile")).getAttribute("value");
+        String workNr = getWd().findElement(By.name("work")).getAttribute("value");
+        return new ContactData().withId(contact.getId())
+                .withFirstName(firstName)
+                .withLastName(lastName)
+                .withHomeNr(homeNr)
+                .withMobileNr(mobileNr)
+                .withWorkNr(workNr);
     }
 }

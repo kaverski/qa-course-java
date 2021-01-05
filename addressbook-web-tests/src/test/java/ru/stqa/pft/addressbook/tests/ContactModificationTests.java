@@ -32,7 +32,7 @@ public class ContactModificationTests extends TestBase {
         //contact to modify
         ContactData contactToModify = before.iterator().next();
 
-        app.getNavigationHelper().goToContactEditPageById(contactToModify.getId());
+        app.getContactHelper().goToContactEditPageById(contactToModify.getId());
 
         //создать новый контакт с ИД модифиц контакта
         ContactData contact = new ContactData().withId(contactToModify.getId())

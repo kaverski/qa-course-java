@@ -6,6 +6,8 @@ public class ContactData {
     private String middleName;
     private String lastName;
     private String homeNr;
+    private String mobileNr;
+    private String workNr;
     private String email;
     private String group;
 
@@ -58,6 +60,24 @@ public class ContactData {
         return this;
     }
 
+    public String getMobileNr() {
+        return mobileNr;
+    }
+
+    public ContactData withMobileNr(String mobileNr) {
+        this.mobileNr = mobileNr;
+        return this;
+    }
+
+    public String getWorkNr() {
+        return workNr;
+    }
+
+    public ContactData withWorkNr(String workNr) {
+        this.workNr = workNr;
+        return this;
+    }
+
     public ContactData withGroup(String group) {
         this.group = group;
         return this;
@@ -77,7 +97,11 @@ public class ContactData {
         return "ContactData{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", homeNr='" + homeNr + '\'' +
+                ", mobileNr='" + mobileNr + '\'' +
+                ", workNr='" + workNr + '\'' +
                 '}';
     }
 

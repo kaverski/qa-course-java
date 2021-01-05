@@ -27,7 +27,11 @@ public class NavigationHelper extends HelperBase {
         if (isElementPresent(By.id("maintable"))) {
             return;
         }
-        click(By.linkText("home page"));
+        click(By.linkText("home page")); //
+    }
+
+    public void clickHomePage() {
+        getWd().findElement(By.xpath("//a[@href='./']")).click();
     }
 
     public void goToContactDetailsPage(int index) {
@@ -45,7 +49,6 @@ public class NavigationHelper extends HelperBase {
     public void goToContactEditPage(int index) {
         getWd().findElements(By.xpath("//img[@title='Edit']")).get(index).click();
     }
-
 
     public void goToContactEditPageById(int id) {
         getWd().findElement(By.xpath("//a[@href='edit.php?id=" + id + "']")).click();

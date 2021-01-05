@@ -28,7 +28,7 @@ public class ContactDeletionTests extends TestBase {
     public void testContactDeletionFromEditPage() {
         Contacts before = app.getContactHelper().getContacts();
         ContactData contactToDelete = before.iterator().next();
-        app.getNavigationHelper().goToContactEditPageById(contactToDelete.getId());
+        app.getContactHelper().goToContactEditPageById(contactToDelete.getId());
         app.getContactHelper().deleteContact();
 
         //предварительная проверка размера списка
