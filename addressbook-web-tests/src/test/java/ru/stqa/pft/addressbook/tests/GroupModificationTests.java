@@ -30,10 +30,10 @@ public class GroupModificationTests extends TestBase {
                 .withFooter("test333");
 
         app.getGroupHelper().modifyGroup(group);
+        //предварительная проверка размера списка после модиф группы
+        assertThat(app.getGroupHelper().getGroupCount(), equalTo(before.size()));
 
         Groups after = app.getGroupHelper().all();
-
-        assertEquals(after.size(), before.size());
         assertThat(after, equalTo(before.without(groupToModify).withAdded(group)));
     }
 }

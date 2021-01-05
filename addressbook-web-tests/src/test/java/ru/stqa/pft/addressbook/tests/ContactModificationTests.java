@@ -45,6 +45,8 @@ public class ContactModificationTests extends TestBase {
         app.getContactHelper().editContact(contact, false);
         app.getNavigationHelper().goToHomePage();
 
+        assertThat(app.getContactHelper().getContactCount(), equalTo(before.size()));
+
         //actual element list AFTER edit contact
         Contacts after = app.getContactHelper().getContacts();
 
@@ -68,10 +70,9 @@ public class ContactModificationTests extends TestBase {
 
         app.getContactHelper().editContact(contact, false);
         app.getNavigationHelper().goToHomePage();
+        assertThat(app.getContactHelper().getContactCount(), equalTo(before.size()));
 
         Contacts after = app.getContactHelper().getContacts();
-
-        assertEquals(before.size(), after.size());
         assertThat(after, equalTo(before.without(contactToModify).withAdded(contact)));
     }
 }

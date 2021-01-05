@@ -1,13 +1,11 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
-import static org.testng.Assert.*;
 
 public class ContactCreationTests extends TestBase {
 
@@ -27,11 +25,11 @@ public class ContactCreationTests extends TestBase {
         app.getContactHelper().createContact(contactToAdd, true);
         app.getNavigationHelper().goToHomePage();
 
+        //предварительная проверка размера списка
+        assertThat(app.getContactHelper().getContactCount(), equalTo(before.size() + 1));
+
         //actual element list AFTER adding new contact
         Contacts after = app.getContactHelper().getContacts();
-
-        assertEquals(after.size(), before.size() + 1);
-
         assertThat(after, equalTo(
                 before.withAdded(contactToAdd.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
     }

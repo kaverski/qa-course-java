@@ -30,9 +30,12 @@ public class ContactDeletionTests extends TestBase {
         ContactData contactToDelete = before.iterator().next();
         app.getNavigationHelper().goToContactEditPageById(contactToDelete.getId());
         app.getContactHelper().deleteContact();
+
+        //предварительная проверка размера списка
+        assertThat(app.getContactHelper().getContactCount(), equalTo(before.size() - 1));
+
         Contacts after = app.getContactHelper().getContacts();
 
-        assertEquals(after.size(), before.size() -1);
         assertThat(after, equalTo(before.without(contactToDelete)));
     }
 
@@ -44,9 +47,11 @@ public class ContactDeletionTests extends TestBase {
         app.getContactHelper().selectContactById(contactToDelete.getId());
         app.getContactHelper().deleteContact();
         app.getContactHelper().acceptAlert();
-        Contacts after = app.getContactHelper().getContacts();
 
-        assertEquals(after.size(), before.size() -1);
+        //предварительная проверка размера списка
+        assertThat(app.getContactHelper().getContactCount(), equalTo(before.size() - 1));
+
+        Contacts after = app.getContactHelper().getContacts();
         assertThat(after, equalTo(before.without(contactToDelete)));
     }
 }

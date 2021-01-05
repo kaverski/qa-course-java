@@ -46,6 +46,10 @@ public class ContactHelper extends HelperBase {
         getWd().findElements(By.name("selected[]")).get(index).click();
     }
 
+    public int getContactCount() {
+        return getWd().findElements(By.name("selected[]")).size();
+    }
+
     public void selectContactById(int id) {
         getWd().findElement(By.xpath("//input[@id='" + id + "']")).click();
     }
