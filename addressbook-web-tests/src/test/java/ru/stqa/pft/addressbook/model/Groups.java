@@ -8,10 +8,12 @@ import java.util.Set;
 public class Groups extends ForwardingSet<GroupData> {
     private Set<GroupData> delegate;
 
+    //copy constructor
     public Groups(Groups groups) {
         this.delegate = new HashSet<GroupData>(groups.delegate);
     }
 
+    //constructor with empty set
     public Groups() {
         this.delegate = new HashSet<GroupData>();
     }
