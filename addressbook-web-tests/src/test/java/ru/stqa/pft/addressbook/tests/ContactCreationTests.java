@@ -18,7 +18,6 @@ public class ContactCreationTests extends TestBase {
         ContactData contactToAdd = new ContactData().withFirstName("11First")
                 .withMiddleName("Onemore2")
                 .withLastName("rrZZZFirstLast")
-                .withHomeNr("87878")
                 .withEmail("newtest123@newtest.newtest")
                 .withGroup("test55");
 

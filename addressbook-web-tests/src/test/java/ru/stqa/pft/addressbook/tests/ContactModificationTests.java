@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.MatcherAssert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
@@ -13,17 +14,19 @@ public class ContactModificationTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        if (app.getContactHelper().getContacts().size() == 0) {
+        if (app.getContactHelper().getContactCount() == 0) {
             app.getNavigationHelper().goToAddContactPage();
-            app.getContactHelper().createContact(new ContactData().withFirstName("InitialName")
-                    .withMiddleName("InitialMiddle")
-                    .withLastName("InitialLast")
-                    .withHomeNr("7777")
-                    .withEmail("test222@test333.test444"), true);
+            app.getContactHelper().createContact(
+                    new ContactData()
+                            .withFirstName("InitialName")
+                            .withLastName("InitialLast")
+                            .withHomeNr("7  777")
+                            .withMobileNr("+7656565")
+                            .withWorkNr("10000")
+                            .withGroup("test55"), true);
             app.getNavigationHelper().goToHomePage();
         }
     }
-
     @Test
     public void testContactModificationViaEditPage() {
         //actual element list BEFORE edit contact
@@ -49,8 +52,6 @@ public class ContactModificationTests extends TestBase {
 
         //actual element list AFTER edit contact
         Contacts after = app.getContactHelper().getContacts();
-
-        assertEquals(before.size(), after.size());
         assertThat(after, equalTo(before.without(contactToModify).withAdded(contact)));
     }
 

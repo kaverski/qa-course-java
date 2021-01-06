@@ -10,6 +10,7 @@ public class ContactData {
     private String workNr;
     private String email;
     private String group;
+    private String allPhones;
 
     public int getId() {
         return id;
@@ -123,5 +124,14 @@ public class ContactData {
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         return result;
+    }
+
+    public ContactData willAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
+
+    public String getAllPhones() {
+        return allPhones;
     }
 }

@@ -80,17 +80,14 @@ public class ContactHelper extends HelperBase {
         for (WebElement tableEntry : tableEntries) {
             String lastName = tableEntry.findElement(By.xpath(".//td[2]")).getText();
             String firstName = tableEntry.findElement(By.xpath(".//td[3]")).getText();
+
             //get all phones from cell
             String allPhones = tableEntry.findElement(By.xpath(".//td[6]")).getText();
-            //split all phones cell
-            String[] phones = allPhones.split("\n");
             int id = Integer.parseInt(tableEntry.findElement(By.xpath(".//td[1]/input")).getAttribute("id"));
             ContactData contact = new ContactData().withId(id)
                     .withFirstName(firstName)
                     .withLastName(lastName)
-                    .withHomeNr(phones[0])
-                    .withMobileNr(phones[1])
-                    .withWorkNr(phones[2]);
+                    .willAllPhones(allPhones);
             contacts.add(contact);
         }
         return contacts;

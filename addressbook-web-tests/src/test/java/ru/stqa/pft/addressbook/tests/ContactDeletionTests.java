@@ -7,19 +7,21 @@ import ru.stqa.pft.addressbook.model.Contacts;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
-import static org.testng.Assert.*;
 
 public class ContactDeletionTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        if (app.getContactHelper().getContacts().size() == 0) {
+        if (app.getContactHelper().getContactCount() == 0) {
             app.getNavigationHelper().goToAddContactPage();
-            app.getContactHelper().createContact(new ContactData().withFirstName("InitialName")
-                    .withMiddleName("InitialMiddle")
-                    .withLastName("InitialLast")
-                    .withHomeNr("7777")
-                    .withEmail("test222@test333.test444"), true);
+            app.getContactHelper().createContact(
+                    new ContactData()
+                            .withFirstName("InitialName")
+                            .withLastName("InitialLast")
+                          //  .withHomeNr("7  777")
+                         //   .withMobileNr("+7656565")
+                         //   .withWorkNr("10000")
+                            .withGroup("test55"), true);
             app.getNavigationHelper().goToHomePage();
         }
     }
