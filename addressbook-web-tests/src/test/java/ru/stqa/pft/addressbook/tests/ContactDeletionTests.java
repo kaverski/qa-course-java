@@ -18,9 +18,6 @@ public class ContactDeletionTests extends TestBase {
                     new ContactData()
                             .withFirstName("InitialName")
                             .withLastName("InitialLast")
-                          //  .withHomeNr("7  777")
-                         //   .withMobileNr("+7656565")
-                         //   .withWorkNr("10000")
                             .withGroup("test55"), true);
             app.getNavigationHelper().goToHomePage();
         }
