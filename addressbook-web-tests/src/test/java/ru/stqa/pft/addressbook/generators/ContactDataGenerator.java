@@ -47,13 +47,14 @@ public class ContactDataGenerator {
     private List<ContactData> generateContacts(int count) {
         List<ContactData> contacts = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            contacts.add(new ContactData().withFirstName("Myfirst")
+            contacts.add(new ContactData().withFirstName("Myfirst" + i)
             .withLastName("OneLast" + i)
             .withMiddleName("OneMiddle" + i)
             .withAddress("Newaddress str.100, 1234" + i)
             .withEmail("bbb@bbb.bbb" + i)
             .withGroup("test55")
-            .withMobileNr("987456321" + i));
+            .withMobileNr("987456321" + i)
+            .withPhoto(new File("src/test/resources/download.jpg")));
         }
         return contacts;
     }
