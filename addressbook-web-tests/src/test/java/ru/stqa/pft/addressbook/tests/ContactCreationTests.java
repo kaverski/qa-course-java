@@ -4,6 +4,8 @@ import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
+import java.io.File;
+
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
@@ -15,13 +17,15 @@ public class ContactCreationTests extends TestBase {
         Contacts before = app.getContactHelper().getContacts();
 
         app.getNavigationHelper().goToAddContactPage();
+        File photo = new File("src/test/resources/download.jpg");//относит путь
         ContactData contactToAdd = new ContactData().withFirstName("11First")
                 .withMiddleName("Onemore2")
                 .withLastName("rrZZZFirstLast")
                 .withEmail("newtest123@newtest.newtest")
-                .withGroup("test55");
+                .withGroup("test55")
+                .withPhoto(photo);
 
-        app.getContactHelper().createContact(contactToAdd, true);
+        app.getContactHelper().createContact(contactToAdd, true); //файл по абсолютному пути
         app.getNavigationHelper().goToHomePage();
 
         //предварительная проверка размера списка
