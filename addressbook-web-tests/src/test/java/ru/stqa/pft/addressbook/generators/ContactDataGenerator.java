@@ -47,13 +47,13 @@ public class ContactDataGenerator {
     private List<ContactData> generateContacts(int count) {
         List<ContactData> contacts = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            contacts.add(new ContactData().withFirstName("Myfirst" + i)
-            .withLastName("OneLast" + i)
-            .withMiddleName("OneMiddle" + i)
-            .withAddress("Newaddress str.100, 1234" + i)
-            .withEmail("bbb@bbb.bbb" + i)
+            contacts.add(new ContactData().withFirstName("Myfirst" + (i+100))
+            .withLastName("OneLast" + (i+100))
+            .withMiddleName("OneMiddle" + (i+100))
+            .withAddress("Newaddress str.100, 1234" + (i+100))
+            .withEmail("bbb@bbb.bbb" + (i+100))
             .withGroup("test55")
-            .withMobileNr("987456321" + i)
+            .withMobileNr("987456321" + (i+100))
             .withPhoto(new File("src/test/resources/download.jpg")));
         }
         return contacts;
@@ -62,8 +62,8 @@ public class ContactDataGenerator {
     private void saveAsJSON(List<ContactData> contacts, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(contacts); //serialize object to json
-        Writer writer = new FileWriter(file);
-        writer.write(json); //write to file
-        writer.close();
+        try (Writer writer = new FileWriter(file)) {
+            writer.write(json); //write to file
+        }
     }
 }
