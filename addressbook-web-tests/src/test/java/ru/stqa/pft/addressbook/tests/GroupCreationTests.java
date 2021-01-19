@@ -53,15 +53,16 @@ public class GroupCreationTests extends TestBase {
 
     @Test(dataProvider = "validGroupsFromJSON")
     public void testGroupCreation(GroupData groupToAdd) throws Exception {
+        Groups before = app.getDbHelper().getGroups(); //initial group list from DB
         app.getNavigationHelper().goToGroupPage();
-        Groups before = app.getGroupHelper().all();
+
         //группа полученая из data provider
         app.getGroupHelper().createGroup(groupToAdd);
 
         //предварительная проверка размера списка после добавления группы
         assertThat(app.getGroupHelper().getGroupCount(), equalTo(before.size() + 1));
 
-        Groups after = app.getGroupHelper().all();
+        Groups after = app.getDbHelper().getGroups();
         assertThat(after, equalTo(
                 before.withAdded(groupToAdd.withId(after.stream().mapToInt(GroupData::getId).max().getAsInt()))));
     }

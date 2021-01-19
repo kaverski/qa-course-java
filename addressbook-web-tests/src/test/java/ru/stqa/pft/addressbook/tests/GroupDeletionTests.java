@@ -12,22 +12,24 @@ public class GroupDeletionTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        app.getNavigationHelper().goToGroupPage();
-        if (app.getGroupHelper().all().size() == 0) {
+        if (app.getDbHelper().getGroups().size() == 0) {
+            app.getNavigationHelper().goToGroupPage();
             app.getGroupHelper().createGroup(new GroupData().withName("test777"));
         }
     }
 
     @Test
     public void testGroupDeletion() throws Exception {
-        Groups before = app.getGroupHelper().all();
+        Groups before = app.getDbHelper().getGroups(); //initial group list from DB
         GroupData deletedGroup = before.iterator().next();
 
+        app.getNavigationHelper().goToGroupPage();
         app.getGroupHelper().deleteGroup(deletedGroup);
+
         //предварительная проверка размера списка после удаления группы
         assertThat(app.getGroupHelper().getGroupCount(), equalTo(before.size() - 1));
 
-        Groups after = app.getGroupHelper().all();
+        Groups after = app.getDbHelper().getGroups();
         assertThat(after, equalTo(before.without(deletedGroup)));
     }
 }

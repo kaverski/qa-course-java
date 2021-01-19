@@ -1,33 +1,69 @@
 package ru.stqa.pft.addressbook.model;
 
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 import java.io.File;
 
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
+    @Id
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
+
+    @Column(name = "firstname")
     private String firstName;
+
+    @Column(name = "middlename")
     private String middleName;
+
+    @Column(name = "lastname")
     private String lastName;
+
+    @Column(name = "home")
+    @Type(type = "text")
     private String homeNr;
+
+    @Column(name = "mobile")
+    @Type(type = "text")
     private String mobileNr;
+
+    @Column(name = "work")
+    @Type(type = "text")
     private String workNr;
+
+    @Column(name = "email")
+    @Type(type = "text")
     private String email;
+    @Type(type = "text")
     private String email2;
+    @Type(type = "text")
     private String email3;
 
+    @Transient
+    private String group;
+
+    @Transient
+    private String allPhones;
+    @Column(name = "address")
+    @Type(type = "text")
+    private String address;
+    @Transient
+    private String allEmails;
+
+    @Column(name = "photo")
+    @Type(type = "text")
+    private String photo;
+
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
-
-    private String group;
-    private String allPhones;
-    private String address;
-    private String allEmails;
-    private File photo;
 
     public String getAllEmails() {
         return allEmails;
@@ -159,6 +195,15 @@ public class ContactData {
                 '}';
     }
 
+    public ContactData willAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
+
+    public String getAllPhones() {
+        return allPhones;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -177,14 +222,5 @@ public class ContactData {
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         return result;
-    }
-
-    public ContactData willAllPhones(String allPhones) {
-        this.allPhones = allPhones;
-        return this;
-    }
-
-    public String getAllPhones() {
-        return allPhones;
     }
 }

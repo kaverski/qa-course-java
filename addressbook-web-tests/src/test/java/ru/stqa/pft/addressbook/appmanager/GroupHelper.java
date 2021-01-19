@@ -36,7 +36,8 @@ public class GroupHelper extends HelperBase {
     }
 
     public void selectGroupById(int id) {
-        getWd().findElement(By.cssSelector("input[value='" + id + "' ]")).click();
+        //input[@value='182']
+        getWd().findElement(By.xpath("//span[@class='group']/input[@value='" + id + "']")).click();
     }
 
     public void deleteSelectedGroup() {

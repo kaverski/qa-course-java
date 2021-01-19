@@ -106,3 +106,4 @@ addressbook-web-tests/build/tmp/testContacts/jar_extract_5351802548650036550_tmp
 addressbook-web-tests/build/tmp/testGroups/jar_extract_8303510155829032823_tmp
 addressbook-web-tests/build/resources/test/local.properties
 addressbook-web-tests/out/test/resources/local.properties
+*.log

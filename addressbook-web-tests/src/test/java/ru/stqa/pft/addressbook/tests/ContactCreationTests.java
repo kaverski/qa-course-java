@@ -41,7 +41,7 @@ public class ContactCreationTests extends TestBase {
     @Test(dataProvider = "validContactsFromJSON")
     public void testContactCreation(ContactData contact) throws Exception {
         //actual element list BEFORE adding new contact
-        Contacts before = app.getContactHelper().getContacts();
+        Contacts before = app.getDbHelper().getContacts(); //initial contacts from DB
 
         app.getNavigationHelper().goToAddContactPage();
         //File photo = new File("src/test/resources/download.jpg");//относит путь
@@ -53,7 +53,7 @@ public class ContactCreationTests extends TestBase {
         assertThat(app.getContactHelper().getContactCount(), equalTo(before.size() + 1));
 
         //actual element list AFTER adding new contact
-        Contacts after = app.getContactHelper().getContacts();
+        Contacts after = app.getDbHelper().getContacts();
         assertThat(after, equalTo(
                 before.withAdded(contact.withId(after.stream().mapToInt(ContactData::getId).max().getAsInt()))));
     }
