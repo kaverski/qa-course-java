@@ -23,7 +23,7 @@ public class DBHelper {
         sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
     }
 
-    //get Groups list
+    //get Groups list from DB
     public Groups getGroups() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();

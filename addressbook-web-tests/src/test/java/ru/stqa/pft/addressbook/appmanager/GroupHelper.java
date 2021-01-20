@@ -7,9 +7,7 @@ import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class GroupHelper extends HelperBase {
 
@@ -108,7 +106,8 @@ public class GroupHelper extends HelperBase {
         for (WebElement element : elements) {
             String name = element.getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            groupCache.add(new GroupData().withId(id)
+            groupCache.add(new GroupData()
+                    .withId(id)
                     .withName(name));
         }
         return new Groups(groupCache);
