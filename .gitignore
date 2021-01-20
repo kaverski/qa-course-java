@@ -46,7 +46,6 @@ addressbook-web-tests/build/reports/tests/testContacts/css/style.css
 *.js
 *.bin
 *.idx
-*.xml
 addressbook-web-tests/build/tmp/test/jar_extract_10756748304475848905_tmp
 addressbook-web-tests/build/tmp/test/jar_extract_119851533881291774_tmp
 addressbook-web-tests/build/tmp/test/jar_extract_12542108897063823373_tmp
