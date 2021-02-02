@@ -2,10 +2,9 @@ package ru.stqa.pft.addressbook.model;
 
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "group_list")
@@ -21,6 +20,18 @@ public class GroupData {
     @Type(type = "text")
     @Column(name = "group_footer")
     private String footer;
+
+    @ManyToMany(mappedBy = "groups")
+    private Set<ContactData> contacts = new HashSet<>();
+
+    public Contacts getContacts() {
+        return new Contacts(contacts);
+    }
+
+    public GroupData withContacts(Set<ContactData> contacts) {
+        this.contacts = contacts;
+        return this;
+    }
 
     public String getName() {
         return name;

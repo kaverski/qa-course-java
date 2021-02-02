@@ -20,7 +20,7 @@ public class ContactModificationTests extends TestBase {
                     new ContactData()
                             .withFirstName("InitialName")
                             .withLastName("InitialLast")
-                            .withGroup("test55")
+                            //.withGroup("test55")
                             .withPhoto(new File("src/test/resources/download.jpg")), true);
             app.getNavigationHelper().goToHomePage();
         }

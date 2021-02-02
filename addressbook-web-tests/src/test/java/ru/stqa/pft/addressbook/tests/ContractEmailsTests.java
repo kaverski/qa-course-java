@@ -28,7 +28,7 @@ public class ContractEmailsTests extends TestBase{
                             .withHomeNr("7  777")
                             .withMobileNr("+7656565")
                             .withWorkNr("10000")
-                            .withGroup("test55")
+                            //.withGroup("test55")
                             .withPhoto(new File("src/test/resources/download.jpg")), true);
             app.getNavigationHelper().goToHomePage();
         }

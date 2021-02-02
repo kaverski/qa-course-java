@@ -52,7 +52,7 @@ public class ContactDataGenerator {
             .withMiddleName("OneMiddle" + (i+100))
             .withAddress("Newaddress str.100, 1234" + (i+100))
             .withEmail("bbb@bbb.bbb" + (i+100))
-            .withGroup("test55")
+            //.withGroup("test55")
             .withMobileNr("987456321" + (i+100))
             .withPhoto(new File("src/test/resources/download.jpg")));
         }

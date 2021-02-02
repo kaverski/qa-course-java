@@ -5,6 +5,8 @@ import com.google.gson.Gson;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,6 +20,15 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
 public class ContactCreationTests extends TestBase {
+
+    @BeforeMethod
+    public void ensurePreconditions(){
+        if (app.getDbHelper().getGroups().size() == 0) {
+            app.getNavigationHelper().goToGroupPage();
+            app.getGroupHelper().createGroup(new GroupData().withName("test777"));
+            app.getNavigationHelper().clickHomePage();
+        }
+    }
 
     @DataProvider
     public Iterator<Object[]> validContactsFromJSON() throws IOException {
@@ -38,15 +49,17 @@ public class ContactCreationTests extends TestBase {
         }
     }
 
+
     @Test(dataProvider = "validContactsFromJSON")
     public void testContactCreation(ContactData contact) throws Exception {
         //actual element list BEFORE adding new contact
         Contacts before = app.getDbHelper().getContacts(); //initial contacts from DB
+        Groups groupsFromDB = app.getDbHelper().getGroups();
 
         app.getNavigationHelper().goToAddContactPage();
         //File photo = new File("src/test/resources/download.jpg");//относит путь
 
-        app.getContactHelper().createContact(contact, true); //файл по абсолютному пути
+        app.getContactHelper().createContact(contact.inGroup(groupsFromDB.iterator().next()), true); //получить группу из groupsFromDB
         app.getNavigationHelper().goToHomePage();
 
         //предварительная проверка размера списка
